@@ -1,0 +1,135 @@
+@use "../util" as *;
+body {
+  @include dynamicTextColor($clr-bg);
+  font-weight: $medium;
+  font-size: 14px;
+  //padding-bottom: 200vh;
+
+  p {
+    font-weight: $regular;
+  }
+}
+
+button {
+  @extend .reset-btn;
+  width: 100%;
+}
+
+.btn {
+  padding: 0.6em 0;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 0.3px solid $clr-primary;
+  transition: 0.5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: $semibold;
+  text-transform: uppercase;
+  color: $clr-primary;
+
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: 0.5s ease-out;
+    background-color: $clr-primary;
+  }
+
+  &::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+  }
+
+  &:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+  }
+
+  &:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+  }
+
+  &:hover {
+    color: $clr-bg;
+  }
+
+  &:active {
+    filter: brightness(0.7);
+    transform: scale(0.98);
+  }
+}
+
+.primary-btn {
+  @extend .btn;
+}
+
+#star-icon {
+  > :first-child {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: rgba($clr-text, $alpha: 0.1);
+    border-radius: 50%;
+
+    i {
+      @include icon($fa-var-star, $clr-primary);
+      font-size: 14px;
+    }
+  }
+}
+
+#ratings-btn-wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+
+  > * {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background-color: rgba($clr-text, 0.1);
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    font-weight: $semibold;
+    transition: background-color 0.6s, color 0.6s;
+
+    &:hover {
+      background-color: rgba($clr-text, 0.4);
+      animation: pulse 1s;
+    }
+
+    &:focus-within {
+      @include dynamicTextColor($clr-neutral);
+      animation: pulse 1s infinite;
+    }
+  }
+}
+
+main {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+form {
+  @extend .container-style;
+
+  > * {
+    padding: 0.5rem 0;
+  }
+
+  > :nth-child(2) {
+    margin-bottom: 0.5rem;
+  }
+}

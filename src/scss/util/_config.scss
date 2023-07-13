@@ -1,0 +1,101 @@
+@use "./fa" as *;
+//=====COLORS======//
+$clr-bg: #121212;
+$clr-text: #ffffff;
+$clr-primary: #89d7f3;
+$clr-neutral: #f1d39d;
+$clr-err: #cf6679;
+
+//=========MIXINS==========//
+.dark-bg {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+@mixin overlay($opacity: 0.1) {
+  background-color: $clr-bg;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: $clr-text;
+    opacity: $opacity;
+  }
+}
+
+@mixin flex($fd, $gap) {
+  display: flex;
+  flex-direction: $fd;
+  gap: $gap;
+}
+
+@mixin hovered($property, $func, $clr, $num) {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @if ($func == "darken") {
+        #{$property}: darken($clr, $num);
+      } @else {
+        #{$property}: lighten($clr, $num);
+      }
+    }
+  }
+}
+
+@mixin hoverScale($scale) {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      scale: $scale;
+    }
+  }
+}
+
+@mixin clicked($clr) {
+  &:active {
+    color: $clr;
+  }
+}
+
+@mixin icon($name, $clr) {
+  @include fa-icon();
+  @include fa-icon-solid($name);
+  color: $clr;
+  font-size: 12px;
+  color: $clr;
+}
+
+@mixin dynamicTextColor($clr) {
+  background-color: $clr;
+  @if (lightness($clr) > 70) {
+    color: $clr-bg;
+  } @else {
+    color: $clr-text;
+  }
+}
+
+//=========FONTS=========//
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+$ff: "Montserrat", sans-serif;
+$heading: clamp(1.25rem, calc(0.31rem + 5vw), 1.56rem);
+$sub-heading: clamp(1rem, calc(0.63rem + 2vw), 1.13rem);
+
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+
+body {
+  font-family: $ff;
+  font-size: 16px;
+}
+
+h1,
+h2 {
+  font-weight: $semibold;
+  font-size: $sub-heading;
+}
+
+//======STYLES=====//
+$box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+  rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;

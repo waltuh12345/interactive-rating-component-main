@@ -1,0 +1,21 @@
+@use "../util" as *;
+.state-end {
+  @extend .container-style;
+  text-align: center;
+
+  svg {
+    margin-inline: auto;
+    display: block;
+    max-width: 100%;
+    width: 80%;
+    margin-bottom: 0.8rem;
+  }
+
+  section {
+    padding: 1rem 0;
+  }
+
+  h2 {
+    margin-bottom: 0.4rem;
+  }
+}
